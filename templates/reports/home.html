@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Reports</h2>
+<h4>Bill Summary</h4><table class="table"><tr><th>Status</th><th>Bills</th><th>Total</th></tr>{% for row in sales_by_status %}<tr><td>{{ row.payment_status }}</td><td>{{ row.count }}</td><td>₹{{ row.total }}</td></tr>{% endfor %}</table>
+<h4>Outstanding Customers</h4><table class="table"><tr><th>Customer</th><th>Mobile</th><th>Outstanding</th></tr>{% for c in outstanding %}<tr><td>{{ c.name }}</td><td>{{ c.mobile }}</td><td>₹{{ c.outstanding_balance }}</td></tr>{% empty %}<tr><td colspan="3">No outstanding balances.</td></tr>{% endfor %}</table>
+<h4>Payments by Method</h4><table class="table"><tr><th>Method</th><th>Total</th></tr>{% for p in payments %}<tr><td>{{ p.payment_method }}</td><td>₹{{ p.total }}</td></tr>{% endfor %}</table>
+<h4>Low Stock</h4><ul>{% for p in low_stock %}<li>{{ p.name }} — {{ p.stock_quantity }} {{ p.unit }}</li>{% empty %}<li>No low-stock products.</li>{% endfor %}</ul>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between"><h2>{{ customer.name }}</h2><a class="btn btn-outline-success" href="{% url 'customers:edit' customer.pk %}">Edit</a></div>
+<p>Mobile: <strong>{{ customer.mobile }}</strong> | Outstanding: <strong>₹{{ customer.outstanding_balance }}</strong></p>
+<h4 class="mt-4">Billing History</h4>
+<table class="table"><tr><th>Bill</th><th>Total</th><th>Paid</th><th>Remaining</th><th>Status</th></tr>
+{% for bill in bills %}<tr><td><a href="{% url 'billing:detail' bill.pk %}">{{ bill.bill_number }}</a></td><td>₹{{ bill.grand_total }}</td><td>₹{{ bill.paid_amount }}</td><td>₹{{ bill.remaining_amount }}</td><td>{{ bill.payment_status }}</td></tr>{% empty %}<tr><td colspan="5">No bills.</td></tr>{% endfor %}
+</table>
+{% endblock %}

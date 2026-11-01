@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="d-flex justify-content-between mb-4">
+
+        <h2 class="fw-bold">
+            Bills
+        </h2>
+
+        <div>
+
+            <a
+                href="{% url 'billing:payment' %}"
+                class="btn btn-outline-success"
+            >
+                Customer Payment
+            </a>
+
+            <a
+                href="{% url 'billing:create' %}"
+                class="btn btn-success"
+            >
+                Create Bill
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <form class="mb-4">
+
+        <div class="input-group">
+
+            <input
+                name="q"
+                value="{{ q }}"
+                class="form-control"
+                placeholder="Bill number, customer or mobile"
+            >
+
+            <button class="btn btn-outline-success">
+                Search
+            </button>
+
+        </div>
+
+    </form>
+
+
+    <div class="table-responsive">
+
+        <table class="table table-hover">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Bill
+                    </th>
+
+                    <th>
+                        Customer
+                    </th>
+
+                    <th>
+                        Total
+                    </th>
+
+                    <th>
+                        Paid
+                    </th>
+
+                    <th>
+                        Remaining
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for bill in bills %}
+
+                <tr>
+
+                    <td>
+
+                        <a
+                            href="{% url 'billing:detail' bill.pk %}"
+                            class="fw-bold text-decoration-none"
+                        >
+                            {{ bill.bill_number }}
+                        </a>
+
+                    </td>
+
+
+                    <td>
+
+                        {{ bill.customer.name }}
+
+                        <br>
+
+                        <small class="text-muted">
+                            {{ bill.customer.mobile }}
+                        </small>
+
+                    </td>
+
+
+                    <td>
+                        ₹{{ bill.grand_total }}
+                    </td>
+
+
+                    <td>
+                        ₹{{ bill.paid_amount }}
+                    </td>
+
+
+                    <td>
+
+                        <strong>
+                            ₹{{ bill.remaining_amount }}
+                        </strong>
+
+                    </td>
+
+
+                    <td>
+
+                        {% if bill.payment_status == "PAID" %}
+
+                        <span class="badge bg-success">
+                            Paid
+                        </span>
+
+                        {% elif bill.payment_status == "PARTIALLY_PAID" %}
+
+                        <span class="badge bg-warning text-dark">
+                            Partially Paid
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-danger">
+                            Unpaid
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+
+                {% empty %}
+
+                <tr>
+
+                    <td
+                        colspan="6"
+                        class="text-center text-muted py-5"
+                    >
+                        No bills found.
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

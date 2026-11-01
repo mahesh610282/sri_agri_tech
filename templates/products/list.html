@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3"><h2>Products</h2><a class="btn btn-success" href="{% url 'products:create' %}">Add Product</a></div>
+<form class="row g-2 mb-3"><div class="col-md-5"><input name="q" value="{{ q }}" class="form-control" placeholder="Product name/code"></div><div class="col-md-3"><select name="category" class="form-select"><option value="">All categories</option>{% for c in categories %}<option value="{{ c.id }}" {% if selected_category == c.id|stringformat:"s" %}selected{% endif %}>{{ c.name }}</option>{% endfor %}</select></div><div class="col-auto"><button class="btn btn-outline-success">Filter</button></div></form>
+<div class="table-responsive"><table class="table"><tr><th>Code</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th></th></tr>
+{% for p in products %}<tr><td>{{ p.product_code }}</td><td>{{ p.name }}</td><td>{{ p.category }}</td><td>₹{{ p.selling_price }}</td><td>{{ p.stock_quantity }} {{ p.unit }}</td><td><a href="{% url 'products:edit' p.pk %}">Edit</a></td></tr>{% empty %}<tr><td colspan="6">No products.</td></tr>{% endfor %}
+</table></div>
+{% endblock %}

@@ -1,0 +1,310 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="d-flex justify-content-between mb-4">
+
+        <div>
+
+            <h2 class="fw-bold">
+                {{ bill.bill_number }}
+            </h2>
+
+            <p class="mb-0">
+                {{ bill.created_at|date:"d M Y, h:i A" }}
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <button
+                class="btn btn-outline-success"
+                onclick="window.print()"
+            >
+                Print Bill
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- CUSTOMER -->
+
+    <div class="card shadow-sm border-0 mb-4">
+
+        <div class="card-body">
+
+            <h5>
+                Customer
+            </h5>
+
+            <strong>
+                {{ bill.customer.name }}
+            </strong>
+
+            <br>
+
+            Mobile:
+            {{ bill.customer.mobile }}
+
+        </div>
+
+    </div>
+
+
+    <!-- PRODUCTS -->
+
+    <div class="card shadow-sm border-0 mb-4">
+
+        <div class="card-header">
+            <strong>Products</strong>
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table mb-0">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Product
+                        </th>
+
+                        <th>
+                            Qty
+                        </th>
+
+                        <th>
+                            Unit Price
+                        </th>
+
+                        <th>
+                            Total
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for item in bill.items.all %}
+
+                    <tr>
+
+                        <td>
+                            {{ item.product.name }}
+                        </td>
+
+                        <td>
+                            {{ item.quantity }}
+                        </td>
+
+                        <td>
+                            ₹{{ item.unit_price }}
+                        </td>
+
+                        <td>
+                            ₹{{ item.line_total }}
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- SUMMARY -->
+
+    <div class="card shadow-sm border-0 mb-4">
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-6 ms-auto">
+
+                    <p>
+                        Subtotal:
+                        <strong>
+                            ₹{{ bill.subtotal }}
+                        </strong>
+                    </p>
+
+                    <p>
+                        Discount:
+                        <strong>
+                            ₹{{ bill.discount }}
+                        </strong>
+                    </p>
+
+                    <p>
+                        Interest:
+                        <strong>
+                            ₹{{ bill.interest_amount }}
+                        </strong>
+                    </p>
+
+                    <hr>
+
+                    <h4>
+                        Grand Total:
+                        ₹{{ bill.grand_total }}
+                    </h4>
+
+                    <p>
+                        Paid:
+                        <strong>
+                            ₹{{ bill.paid_amount }}
+                        </strong>
+                    </p>
+
+                    <h4 class="text-danger">
+
+                        Remaining:
+                        ₹{{ bill.remaining_amount }}
+
+                    </h4>
+
+                    <span class="badge bg-success">
+
+                        {{ bill.get_payment_status_display }}
+
+                    </span>
+
+
+                    {% if bill.remaining_amount > 0 %}
+
+                    <a
+                        href="{% url 'billing:bill_payment' bill.id %}"
+                        class="btn btn-warning ms-2"
+                    >
+                        Record Payment
+                    </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PAYMENT ALLOCATIONS -->
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header">
+
+            <strong>
+                Payment History
+            </strong>
+
+        </div>
+
+
+        <div class="table-responsive">
+
+            <table class="table mb-0">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Payment
+                        </th>
+
+                        <th>
+                            Method
+                        </th>
+
+                        <th>
+                            Reference
+                        </th>
+
+                        <th>
+                            Allocated
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for allocation in bill.payment_allocations.all %}
+
+                    <tr>
+
+                        <td>
+                            {{ allocation.payment.payment_date|date:"d M Y" }}
+                        </td>
+
+                        <td>
+                            ₹{{ allocation.payment.amount }}
+                        </td>
+
+                        <td>
+                            {{ allocation.payment.get_payment_method_display }}
+                        </td>
+
+                        <td>
+                            {{ allocation.payment.reference_number }}
+                        </td>
+
+                        <td>
+                            ₹{{ allocation.amount }}
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="text-center text-muted"
+                        >
+                            No payments recorded.
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

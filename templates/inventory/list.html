@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Inventory</h2>
+<form method="post" action="{% url 'inventory:adjust' %}" class="card card-body mb-4">{% csrf_token %}
+<div class="row g-2">
+<div class="col-md-4"><select name="product_id" class="form-select" required><option value="">Product</option>{% for p in products %}<option value="{{ p.id }}">{{ p.product_code }} - {{ p.name }} ({{ p.stock_quantity }})</option>{% endfor %}</select></div>
+<div class="col-md-2"><input name="quantity" class="form-control" type="number" step="0.001" min="0.001" placeholder="Quantity" required></div>
+<div class="col-md-3"><select name="transaction_type" class="form-select"><option value="PURCHASE">Purchase / Add</option><option value="ADJUSTMENT">Adjustment / Add</option><option value="RETURN">Return / Add</option><option value="SALE">Sale / Reduce</option></select></div>
+<div class="col-md-3"><button class="btn btn-success w-100">Update Stock</button></div>
+</div></form>
+<table class="table"><tr><th>Product</th><th>Type</th><th>Qty</th><th>Balance</th><th>Date</th></tr>
+{% for t in transactions %}<tr><td>{{ t.product.name }}</td><td>{{ t.transaction_type }}</td><td>{{ t.quantity }}</td><td>{{ t.balance_after }}</td><td>{{ t.created_at }}</td></tr>{% endfor %}
+</table>
+{% endblock %}

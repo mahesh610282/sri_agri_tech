@@ -1,0 +1,206 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sri Mathre Agri Clinics{% endblock %}
+
+{% block extra_css %}
+<style>
+    .agri-hero {
+        min-height: 480px;
+        display: flex;
+        align-items: center;
+        background:
+            linear-gradient(90deg, rgba(10,45,25,.88), rgba(10,45,25,.2)),
+            url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
+        background-size: cover;
+        background-position: center;
+        border-radius: 0 0 25px 25px;
+        color: white;
+    }
+
+    .agri-hero h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(36px, 5vw, 58px);
+        font-weight: 700;
+    }
+
+    .agri-hero h1 span {
+        color: #f5cf69;
+    }
+
+    .category-card {
+        height: 100%;
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        border: 1px solid #e8eee8;
+        transition: .3s;
+    }
+
+    .category-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 10px 25px rgba(0,0,0,.1);
+    }
+
+    .category-card img {
+        width: 100%;
+        height: 190px;
+        object-fit: cover;
+    }
+
+    .category-info {
+        padding: 18px;
+    }
+
+    .category-info h5 {
+        color: #176b3a;
+        font-weight: 700;
+    }
+
+    .category-info p {
+        color: #777;
+        font-size: 13px;
+        margin: 0;
+    }
+
+    @media(max-width: 576px) {
+        .agri-hero {
+            min-height: 380px;
+        }
+
+        .category-card img {
+            height: 135px;
+        }
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<!-- HERO BANNER WITH IMAGE -->
+
+<section class="agri-hero">
+    <div class="container py-5">
+        <div class="col-lg-7">
+
+            <span class="badge bg-warning text-dark p-2 mb-3">
+                Welcome to Sri Mathre Agri Clinics
+            </span>
+
+            <h1>
+                Grow Better With
+                <span>Smart Agriculture</span>
+            </h1>
+
+            <p class="lead mt-3">
+                Your trusted destination for quality fertilizers,
+                seeds, insecticides and pesticides.
+            </p>
+
+            <a href="#categories"
+               class="btn btn-warning fw-bold px-4 py-3 mt-3">
+                Explore Products
+                <i class="bi bi-arrow-right"></i>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- PRODUCT CATEGORIES WITH IMAGES -->
+
+<section class="container py-5" id="categories">
+
+    <div class="text-center mb-5">
+        <span class="text-success fw-bold">OUR PRODUCTS</span>
+        <h2 class="fw-bold mt-2">Explore Our Categories</h2>
+        <p class="text-muted">
+            Quality agricultural products for healthy crops.
+        </p>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- FERTILIZERS -->
+        <div class="col-6 col-lg-3">
+            <div class="category-card">
+
+                <img
+                    src="https://www.yara.ph/siteassets/philippines/01-yaramila-f-2.jpg"
+                    alt="Agricultural fertilizers"
+                    loading="lazy"
+                >
+
+                <div class="category-info">
+                    <h5>Fertilizers</h5>
+                    <p>Organic and chemical fertilizers</p>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- SEEDS -->
+        <div class="col-6 col-lg-3">
+            <div class="category-card">
+
+                <img
+                    src="https://anandigreens.com/cdn/shop/articles/VEGETABLE_SEEDS_ONLINE_-_Main_1800x941_crop_center.png?v=1783414111"
+                    alt="Agricultural seeds"
+                    loading="lazy"
+                >
+
+                <div class="category-info">
+                    <h5>Seeds</h5>
+                    <p>Quality crop and vegetable seeds</p>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- INSECTICIDES -->
+        <div class="col-6 col-lg-3">
+            <div class="category-card">
+
+                <img
+                    src="https://agriplexindia.com/cdn/shop/files/New_Project_34_2a7e9d35-c42b-47db-baac-225365644934.jpg?v=1776766912&width=800"
+                    alt="Agricultural insecticides"
+                    loading="lazy"
+                >
+
+                <div class="category-info">
+                    <h5>Insecticides</h5>
+                    <p>Crop insect protection products</p>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- PESTICIDES -->
+        <div class="col-6 col-lg-3">
+            <div class="category-card">
+
+                <img
+                    src="https://www.bharatcertis.com/img/product-1.jpg"
+                    alt="Agricultural pesticides"
+                    loading="lazy"
+                >
+
+                <div class="category-info">
+                    <h5>Pesticides</h5>
+                    <p>Crop protection solutions</p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

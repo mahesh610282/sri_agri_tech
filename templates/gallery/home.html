@@ -1,0 +1,447 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Gallery | Sri Mathre Agri Clinics{% endblock %}
+
+{% block extra_css %}
+
+<style>
+    /* GALLERY HERO */
+
+    .gallery-hero {
+        position: relative;
+        min-height: 280px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        background:
+            linear-gradient(rgba(12, 55, 29, .85),
+                            rgba(12, 55, 29, .65)),
+            url("https://images.unsplash.com/photo-1500382017468-9049fed747ef");
+        background-size: cover;
+        background-position: center;
+        border-radius: 0 0 25px 25px;
+        overflow: hidden;
+    }
+
+    .gallery-hero h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(35px, 5vw, 52px);
+        font-weight: 700;
+    }
+
+    .gallery-hero p {
+        color: #e5f4e9;
+    }
+
+    /* SECTION */
+
+    .gallery-section {
+        padding: 65px 0;
+    }
+
+    .gallery-heading {
+        font-family: 'Playfair Display', serif;
+        color: #14532d;
+        font-weight: 700;
+    }
+
+    .gallery-subtitle {
+        color: #78847b;
+        font-size: 15px;
+    }
+
+    /* GALLERY CARD */
+
+    .gallery-card {
+        background: white;
+        border: 1px solid #edf1ed;
+        border-radius: 16px;
+        overflow: hidden;
+        height: 100%;
+        transition: all .35s ease;
+        animation: fadeUp .7s ease both;
+    }
+
+    .gallery-card:hover {
+        transform: translateY(-9px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, .10);
+    }
+
+    .gallery-image-wrapper {
+        height: 240px;
+        overflow: hidden;
+        position: relative;
+        background: #edf5ee;
+        cursor: pointer;
+    }
+
+    .gallery-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .6s ease;
+    }
+
+    .gallery-card:hover .gallery-img {
+        transform: scale(1.1);
+    }
+
+    .image-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(15, 60, 32, .35);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: .3s;
+    }
+
+    .gallery-card:hover .image-overlay {
+        opacity: 1;
+    }
+
+    .zoom-icon {
+        background: white;
+        color: #23834e;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 21px;
+    }
+
+    /* CARD CONTENT */
+
+    .gallery-card-body {
+        padding: 20px;
+    }
+
+    .gallery-card-body h5 {
+        color: #174b30;
+        font-weight: 700;
+        font-size: 18px;
+    }
+
+    .gallery-card-body p {
+        color: #7a857d;
+        font-size: 14px;
+        line-height: 1.7;
+        margin-bottom: 0;
+    }
+
+    .gallery-tag {
+        display: inline-block;
+        background: #eaf6ed;
+        color: #23834e;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 6px 12px;
+        border-radius: 20px;
+        margin-bottom: 12px;
+    }
+
+    /* EMPTY STATE */
+
+    .empty-gallery {
+        background: white;
+        padding: 65px 20px;
+        border-radius: 18px;
+        border: 1px dashed #b8d7c0;
+        text-align: center;
+    }
+
+    .empty-gallery i {
+        font-size: 55px;
+        color: #23834e;
+    }
+
+    /* LIGHTBOX */
+
+    .gallery-modal .modal-content {
+        background: #111;
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .gallery-modal img {
+        width: 100%;
+        max-height: 75vh;
+        object-fit: contain;
+    }
+
+    .gallery-modal .modal-header {
+        border: none;
+        color: white;
+    }
+
+    .gallery-modal .btn-close {
+        filter: invert(1);
+    }
+
+    /* ANIMATION */
+
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(25px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width: 768px) {
+
+        .gallery-hero {
+            min-height: 230px;
+        }
+
+        .gallery-section {
+            padding: 40px 0;
+        }
+
+        .gallery-image-wrapper {
+            height: 180px;
+        }
+
+        .gallery-card-body {
+            padding: 14px;
+        }
+
+        .gallery-card-body h5 {
+            font-size: 16px;
+        }
+    }
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<!-- GALLERY HERO -->
+
+<section class="gallery-hero">
+
+    <div class="container">
+
+        <span class="badge bg-warning text-dark p-2 mb-3">
+            <i class="bi bi-camera me-1"></i>
+            Our Agriculture Gallery
+        </span>
+
+        <h1>Our Gallery</h1>
+
+        <p class="mt-3 mb-0">
+            Explore our agricultural products, farming activities
+            and success stories.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- GALLERY NT -->
+
+<section class="gallery-section">
+
+    <div class="container">
+
+        <!-- SECTION HEADER -->
+
+        <div class="text-center mb-5">
+
+            <span class="text-success fw-bold">
+                SRI MATHRE AGRI CLINICS
+            </span>
+
+            <h2 class="gallery-heading mt-2">
+                Explore Our Collection
+            </h2>
+
+            <p class="gallery-subtitle">
+                Discover our products, services and agricultural activities.
+            </p>
+
+        </div>
+
+
+        <!-- IMAGE GRID -->
+
+        <div class="row g-4">
+
+            {% for item in images %}
+
+            <div class="col-6 col-md-6 col-lg-4">
+
+                <div class="gallery-card">
+
+                    <!-- IMAGE -->
+
+                    <div class="gallery-image-wrapper"
+                         data-bs-toggle="modal"
+                         data-bs-target="#galleryModal"
+                         data-image="{{ item.image.url }}"
+                         data-title="{{ item.title }}">
+
+                        <img
+                            src="{{ item.image.url }}"
+                            class="gallery-img"
+                            alt="{{ item.title }}"
+                            loading="lazy"
+                        >
+
+                        <div class="image-overlay">
+
+                            <span class="zoom-icon">
+                                <i class="bi bi-zoom-in"></i>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- IMAGE DETAILS -->
+
+                    <div class="gallery-card-body">
+
+                        <span class="gallery-tag">
+                            <i class="bi bi-leaf me-1"></i>
+                            Agriculture
+                        </span>
+
+                        <h5>{{ item.title }}</h5>
+
+                        <p>
+                            {{ item.description|default:"Explore our agricultural collection."|truncatewords:20 }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <!-- EMPTY STATE -->
+
+            <div class="col-12">
+
+                <div class="empty-gallery">
+
+                    <i class="bi bi-images"></i>
+
+                    <h4 class="mt-3 fw-bold">
+                        No Gallery Images Available
+                    </h4>
+
+                    <p class="text-muted">
+                        Gallery images will appear here once they
+                        are added by the administrator.
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- IMAGE LIGHTBOX MODAL -->
+
+<div class="modal fade gallery-modal"
+     id="galleryModal"
+     tabindex="-1"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="galleryModalTitle">
+                    Gallery Image
+                </h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <div class="modal-body text-center p-2">
+
+                <img id="galleryModalImage"
+                     src=""
+                     alt="Gallery preview">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const galleryModal = document.getElementById("galleryModal");
+
+    if (!galleryModal) return;
+
+    galleryModal.addEventListener("show.bs.modal", function (event) {
+
+        const trigger = event.relatedTarget;
+
+        const imageUrl = trigger.getAttribute("data-image");
+
+        const imageTitle = trigger.getAttribute("data-title");
+
+        document.getElementById("galleryModalImage").src = imageUrl;
+
+        document.getElementById("galleryModalTitle").textContent = imageTitle;
+
+    });
+
+    galleryModal.addEventListener("hidden.bs.modal", function () {
+
+        document.getElementById("galleryModalImage").src = "";
+
+    });
+
+});
+
+</script>
+
+{% endblock %}

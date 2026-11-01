@@ -1,0 +1,23 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Admin Dashboard</h2>
+<div class="row g-3">
+  <div class="col-md-3"><div class="card stat-card"><div class="card-body"><small>Total Customers</small><h3>{{ total_customers }}</h3></div></div></div>
+  <div class="col-md-3"><div class="card stat-card"><div class="card-body"><small>Total Products</small><h3>{{ total_products }}</h3></div></div></div>
+  <div class="col-md-3"><div class="card stat-card"><div class="card-body"><small>Total Stock</small><h3>{{ total_stock }}</h3></div></div></div>
+  <div class="col-md-3"><div class="card stat-card"><div class="card-body"><small>Low Stock</small><h3>{{ low_stock_products }}</h3></div></div></div>
+  <div class="col-md-3"><div class="card"><div class="card-body"><small>Today's Sales</small><h3>₹{{ today_sales }}</h3></div></div></div>
+  <div class="col-md-3"><div class="card"><div class="card-body"><small>Total Sales</small><h3>₹{{ total_sales }}</h3></div></div></div>
+  <div class="col-md-3"><div class="card"><div class="card-body"><small>Paid Amount</small><h3>₹{{ paid_amount }}</h3></div></div></div>
+  <div class="col-md-3"><div class="card"><div class="card-body"><small>Outstanding</small><h3>₹{{ outstanding }}</h3></div></div></div>
+</div>
+<div class="mt-4 d-flex flex-wrap gap-2">
+  <a class="btn btn-success" href="{% url 'customers:list' %}">Customers</a>
+  <a class="btn btn-success" href="{% url 'products:list' %}">Products</a>
+  <a class="btn btn-success" href="{% url 'inventory:list' %}">Inventory</a>
+  <a class="btn btn-success" href="{% url 'billing:create' %}">Create Bill</a>
+  <a class="btn btn-success" href="{% url 'billing:list' %}">Bills</a>
+  <a class="btn btn-success" href="{% url 'reports:home' %}">Reports</a>
+</div>
+{% endblock %}

@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ title }}</h2>
+<form method="post" enctype="multipart/form-data" class="card card-body shadow-sm mt-3">{% csrf_token %}{{ form.as_p }}<button class="btn btn-success">Save Product</button></form>
+{% endblock %}

@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Categories</h2>
+<form method="post" class="card card-body mb-4">{% csrf_token %}{{ form.as_p }}<button class="btn btn-success">Add Category</button></form>
+<ul class="list-group">{% for c in categories %}<li class="list-group-item">{{ c.name }} <span class="float-end">{{ c.active|yesno:"Active,Inactive" }}</span></li>{% endfor %}</ul>
+{% endblock %}
